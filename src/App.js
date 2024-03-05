@@ -10,6 +10,7 @@ import Privacy from './pages/privacy';
 import Error from './pages/error';
 import Dashboard from "./pages/dashboard"
 import { useSelector } from "react-redux";
+import SuccessSendReset from './pages/reset-password-success';
 
 function App() {
   const { access_token } = useSelector(state => state.auth)
@@ -17,6 +18,7 @@ function App() {
     <Router>
     <Routes>
       <Route path='/' element={<Login/>} />
+      <Route path='/reset-password-success' element={<SuccessSendReset/>} />
       <Route path='/helpcenter' element={<Helpcenter/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/signup' element={<Signup/>} />
