@@ -57,29 +57,29 @@ const Registration = () => {
                             <form className="text-start mt-4" onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-1">
                                     <div className="mb-4">
-                                        <label className="font-semibold" htmlFor="RegisterName">Su nombre:</label>
-                                        <input id="name" type="text" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="Harry"/>
+                                        <label className="font-semibold" htmlFor="RegisterName">Tu nombre:</label>
+                                        <input id="name" type="text" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="Nombre completo"/>
                                     </div>
     
                                     <div className="mb-4">
                                         <label className="font-semibold" htmlFor="LoginEmail">Correo electrónico:</label>
-                                        <input id="email" type="email" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="name@example.com"/>
+                                        <input id="email" type="email" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="nombre@ejemplo.com"/>
                                     </div>
     
                                     <div className="mb-4">
                                         <label className="font-semibold" htmlFor="LoginPassword">Contraseña:</label>
-                                        <input id="password" type="password" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="Password:"/>
+                                        <input id="password" type="password" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="Mínimo 8 caracteres"/>
                                     </div>
     
                                     <div className="mb-4">
                                         <label className="font-semibold" htmlFor="LoginPassword2">Repite la contraseña:</label>
-                                        <input id="password2" type="password" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="Password:"/>
+                                        <input id="password2" type="password" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder=""/>
                                     </div>
 
                                     <div className="mb-4">
                                         <div className="flex items-center w-full mb-0">
                                             <input className="form-checkbox rounded border-gray-200 dark:border-gray-800 text-amber-400 focus:border-amber-300 focus:ring focus:ring-offset-0 focus:ring-amber-200 focus:ring-opacity-50 me-2 cursor-pointer" type="checkbox" value={true} id="tc"/>
-                                            <label className="form-check-label text-slate-400 cursor-pointer" htmlFor="AcceptT&C">Yo acepto <Link to="" className="text-amber-400"> Terminos y condiciones</Link></label>
+                                            <label className="form-check-label text-slate-400 cursor-pointer" htmlFor="AcceptT&C">Acepto <Link to="" className="text-amber-400"> Terminos y condiciones</Link></label>
                                         </div>
                                     </div>
                                     {serverError.message && <p className="text-red-600 text-center mb-4">{serverError.message}</p>}
