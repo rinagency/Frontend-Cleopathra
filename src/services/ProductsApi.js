@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // Define el servicio para la API de productos
 export const productApi = createApi({
   reducerPath: 'productApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000/api/v1/product/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://backend-cleopathra.onrender.com/api/user/api/v1/product/' }),
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => '',

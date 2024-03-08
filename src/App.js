@@ -11,14 +11,18 @@ import Error from './pages/error';
 import Dashboard from "./pages/dashboard"
 import { useSelector } from "react-redux";
 import SuccessSendReset from './pages/reset-password-success';
+import EnterResetPassword from './pages/enter-reset-password';
+import SuccessRegister from './pages/success-register';
 
-function App() {
-  const { access_token } = useSelector(state => state.auth)
+const App = () => {
+  const { access_token, rememberMe } = useSelector((state) => state.auth);
   return (
     <Router>
     <Routes>
-      <Route path='/' element={<Login/>} />
+      <Route path="/" element={rememberMe ? <Navigate to="/dashboard" /> : <Login />}/>
+      <Route path='/api/user/reset/:uid/:token' element={<EnterResetPassword />} />
       <Route path='/reset-password-success' element={<SuccessSendReset/>} />
+      <Route path='/success-register' element={<SuccessRegister/>} />
       <Route path='/helpcenter' element={<Helpcenter/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/signup' element={<Signup/>} />
@@ -27,7 +31,7 @@ function App() {
       <Route path='/privacy' element={<Privacy/>} />
       <Route path='/error' element={<Error/>} />
       <Route path='*' element={<Error/>} />
-      <Route path="/dashboard" element={access_token ? <Dashboard /> : <Navigate to="/login" />} />      
+      <Route path='/dashboard' element={<Dashboard/>} />
     </Routes>
     </Router>
   );

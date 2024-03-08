@@ -132,7 +132,6 @@ const Registration = () => {
                                         <div className="flex items-center w-full mb-0">
                                             <input className="form-checkbox rounded border-gray-200 dark:border-gray-800 text-amber-400 focus:border-amber-300 focus:ring focus:ring-offset-0 focus:ring-amber-200 focus:ring-opacity-50 me-2 cursor-pointer" type="checkbox" value={true} id="tc"/>
                                             <label className="form-check-label text-slate-400 cursor-pointer" htmlFor="AcceptT&C">Acepto <Link to="" className="text-amber-400"> Terminos y condiciones</Link></label>
-                                            <label className="form-check-label text-slate-400 cursor-pointer" htmlFor="AcceptT&C">Acepto <Link to="" className="text-amber-400"> Terminos y condiciones</Link></label>
                                         </div>
                                     </div>
                                     {serverError.message && <p className="text-red-600 text-center mb-4">{serverError.message}</p>}

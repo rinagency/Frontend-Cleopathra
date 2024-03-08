@@ -10,6 +10,7 @@ import Switcher from "../components/switcher";
 
 const UserLogin = () => {
   const [serverError, setServerError] = useState({});
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const UserLogin = () => {
       const actualData = {
           email: emailInput.value,
           password: passwordInput.value,
+          remember_me: rememberMe,
       };
 
       const res = await loginUser(actualData);
@@ -66,7 +68,7 @@ const UserLogin = () => {
                   <div className="grid grid-cols-1">
                     <div className="mb-4">
                       <label className="font-semibold" htmlFor="LoginEmail">Correo electrónico:</label>
-                      <input id="email" type="email" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="name@example.com"/>
+                      <input id="email" type="email" className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0" placeholder="nombre@ejemplo.com"/>
                     </div>
 
                     <div className="mb-4">
@@ -75,10 +77,17 @@ const UserLogin = () => {
                     </div>
                     {serverError.message && <p className="text-red-600 text-center mb-4">{serverError.message}</p>}
                     <div className="flex justify-between mb-4">
-                      <div className="flex items-center mb-0">
-                        <input className="form-checkbox rounded border-gray-200 dark:border-gray-800 text-amber-400 focus:border-amber-300 focus:ring focus:ring-offset-0 focus:ring-amber-200 focus:ring-opacity-50 cursor-pointer me-2" type="checkbox" value="" id="RememberMe"/>
-                        <label className="form-checkbox-label text-slate-400 cursor-pointer" htmlFor="RememberMe">Recuerdame</label>
-                      </div>
+                    <div className="flex items-center mb-0">
+                    <input
+                      className="form-checkbox rounded border-gray-200 dark:border-gray-800 text-amber-400 focus:border-amber-300 focus:ring focus:ring-offset-0 focus:ring-amber-200 focus:ring-opacity-50 cursor-pointer me-2"
+                      type="checkbox"
+                      value=""
+                      id="RememberMe"
+                      checked={rememberMe}
+                      onChange={() => setRememberMe(!rememberMe)}
+                    />
+                    <label className="form-checkbox-label text-slate-400 cursor-pointer" htmlFor="RememberMe">Recuérdame</label>
+                  </div>
                       <p className="text-slate-400 mb-0"><Link to="/reset-password" className="text-slate-400">¿Olvidó la contraseña?</Link></p>
                     </div>
 
@@ -87,7 +96,7 @@ const UserLogin = () => {
                     </div>
 
                     <div className="text-center">
-                      <span className="text-slate-400 me-2">¿No tienes una cuenta?</span> <Link to="/signup" className="text-slate-900 dark:text-white font-bold inline-block">Registrate</Link>
+                      <span className="text-slate-400 me-2">¿No tienes una cuenta?</span> <Link to="/signup" className="text-slate-900 dark:text-white font-bold inline-block">Regístrate</Link>
                     </div>
                   </div>
                 </form>

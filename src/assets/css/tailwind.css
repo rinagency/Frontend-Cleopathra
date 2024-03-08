@@ -1331,6 +1331,14 @@ video {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(53 161 161 / var(--tw-bg-opacity)) !important;
 }
+.bg-red-600 {
+  background-color: #e53e3e; /* Cambia el color rojo según tu preferencia */
+}
+
+.bg-green-600 {
+  background-color: #48bb78; /* Cambia el color verde según tu preferencia */
+}
+
 .bg-amber-400\/10{
   background-color: rgb(53 161 161 / 0.1) !important;
 }
