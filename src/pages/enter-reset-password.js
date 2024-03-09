@@ -1,50 +1,53 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { userAuthApi } from "../services/UserAuthApi";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import logo from '../assets/images/logo-icon-64.png';
 import Switcher from "../components/switcher";
+import { useResetPasswordMutation } from '../services/UserAuthApi';
 
 const EnterResetPassword = () => {
+  const params = useParams();
+  const id = params.id;
+  const token = params.token;
   const navigate = useNavigate();
-  const { uid, token } = useParams();
 
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
-  // Accede directamente a resetPassword desde userAuthApi
-  const resetPasswordMutation = userAuthApi.useResetPasswordMutation;
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (password1 !== password2) {
-      setError("Las contraseñas no coinciden");
+
+    // Validar que las contraseñas coincidan
+    if (password !== password2) {
+      setError('Las contraseñas no coinciden');
       return;
     }
-  
-    try {
-      const response = await resetPasswordMutation({
-        actualData: {
-          new_password1: password1,
-          new_password2: password2,
-        },
-        id: uid,
-        token,
-      });
-  
-      // Verificar si la respuesta tiene errores de validación
-      if (response.error) {
-        setError(response.error.message); // O ajusta según la estructura del error
-        return;
-      }
-  
-      navigate("/reset-password-success");
-    } catch (error) {
-      console.error("Error al restablecer la contraseña:", error);
+
+    // Hacer la llamada a la API
+    const actualData = {
+      id,
+      token,
+      actualData: {
+        password: password,
+        password2: password2,
+      },
+    };
+
+    const res = await resetPassword(actualData);
+    if (res.error) {
+      setError('Hubo un error al restablecer la contraseña.');
+    } else {
+      setSuccess(true);
     }
   };
+
+  // Redirigir a /reset-password-success si success es true
+  if (success) {
+    navigate('/new-password-success');
+  }
 
   return (
     <>
@@ -67,12 +70,12 @@ const EnterResetPassword = () => {
                     <div className="mb-4">
                       <label className="font-semibold" htmlFor="LoginPassword">Nueva Contraseña</label>
                       <input
-                        id="Password1"
+                        id="Password"
                         type="password"
                         className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0"
                         placeholder="Password:"
-                        value={password1}
-                        onChange={(e) => setPassword1(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
                     <div className="mb-4">
@@ -95,6 +98,9 @@ const EnterResetPassword = () => {
                     </div>
                   </div>
                 </form>
+
+                {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+                {success && <p className="text-green-600 text-center mb-4">Contraseña restablecida con éxito.</p>}
               </div>
             </div>
           </div>
@@ -104,4 +110,5 @@ const EnterResetPassword = () => {
     </>
   );
 };
+
 export default EnterResetPassword;

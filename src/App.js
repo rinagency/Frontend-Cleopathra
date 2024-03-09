@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import SuccessSendReset from './pages/reset-password-success';
 import EnterResetPassword from './pages/enter-reset-password';
 import SuccessRegister from './pages/success-register';
+import NewPasswordSuccess from './pages/NewPasswordSuccess';
 
 const App = () => {
   const { access_token, rememberMe } = useSelector((state) => state.auth);
@@ -20,8 +21,9 @@ const App = () => {
     <Router>
     <Routes>
       <Route path="/" element={rememberMe ? <Navigate to="/dashboard" /> : <Login />}/>
-      <Route path='/api/user/reset/:uid/:token' element={<EnterResetPassword />} />
+      <Route path='/:id/:token' element={<EnterResetPassword />} />
       <Route path='/reset-password-success' element={<SuccessSendReset/>} />
+      <Route path='/new-password-success' element={<NewPasswordSuccess/>} />
       <Route path='/success-register' element={<SuccessRegister/>} />
       <Route path='/helpcenter' element={<Helpcenter/>} />
       <Route path='/login' element={<Login/>} />
