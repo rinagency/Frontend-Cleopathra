@@ -14,8 +14,16 @@ const EnterResetPassword = () => {
   const [password2, setPassword2] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [passwordSecure, setPasswordSecure] = useState(null); // Estado para indicar si la contraseña es segura
 
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
+
+  const handlePasswordInput = (e) => {
+    const newPassword = e.target.value;
+    const isSecure = newPassword.length >= 8 && /[A-Z]/.test(newPassword) && /[a-z]/.test(newPassword) && /\d/.test(newPassword) && /[^A-Za-z0-9]/.test(newPassword);
+
+    setPasswordSecure(isSecure ? 'La contraseña es segura.' : 'La contraseña no es segura. Debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.');
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +31,12 @@ const EnterResetPassword = () => {
     // Validar que las contraseñas coincidan
     if (password !== password2) {
       setError('Las contraseñas no coinciden');
+      return;
+    }
+
+    // Verificar longitud mínima de la contraseña y presencia de un carácter especial
+    if (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setError('La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.');
       return;
     }
 
@@ -67,24 +81,28 @@ const EnterResetPassword = () => {
 
                 <form className="text-start mt-4" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1">
-                    <div className="mb-4">
-                      <label className="font-semibold" htmlFor="LoginPassword">Nueva Contraseña</label>
-                      <input
-                        id="Password"
-                        type="password"
-                        className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0"
-                        placeholder="Password:"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
+                  <div className="mb-4 relative">
+                    <label className="font-semibold" htmlFor="LoginPassword">Nueva Contraseña</label>
+                    <input
+                      id="Password"
+                      type="password"
+                      className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0"
+                      placeholder="Contraseña:"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onInput={handlePasswordInput}
+                    />
+                    {passwordSecure && (
+                      <div className={`h-1 ${passwordSecure.includes('no es segura') ? 'bg-red-600' : 'bg-green-600'}`}></div>
+                    )}
+                  </div>
                     <div className="mb-4">
                       <label className="font-semibold" htmlFor="RepeatPassword">Repetir Contraseña</label>
                       <input
                         id="Password2"
                         type="password"
                         className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0"
-                        placeholder="Password:"
+                        placeholder="Repite la contraseña:"
                         value={password2}
                         onChange={(e) => setPassword2(e.target.value)}
                       />
